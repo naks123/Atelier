@@ -16,7 +16,6 @@ import {
 } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
-import { CompileLogPanel } from '../components/CompileLogPanel.tsx'
 import { PdfPreview } from '../components/PdfPreview.tsx'
 import { StatusPill } from '../components/StatusPill.tsx'
 import { DEFAULT_RESUME_TITLE } from '../data/defaultResume.ts'
@@ -119,13 +118,11 @@ export function EditorPage() {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('saved')
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null)
   const [compileStatus, setCompileStatus] = useState<CompileStatus>('idle')
-  const [compileLog, setCompileLog] = useState('')
   const [compileError, setCompileError] = useState<string | null>(null)
   const [pdfUrl, setPdfUrl] = useState<string | null>(null)
   const [lastSuccessfulSource, setLastSuccessfulSource] = useState<string | null>(
     null,
   )
-  const [logOpen, setLogOpen] = useState(true)
 
   const hydratedResumeIdRef = useRef<string | null>(null)
   const skipAutosaveRef = useRef(false)
@@ -170,7 +167,6 @@ export function EditorPage() {
           setLastSuccessfulSource(null)
           setCompileStatus('idle')
           setCompileError(null)
-          setCompileLog('')
         }
       },
       () => {
@@ -234,22 +230,17 @@ export function EditorPage() {
 
       setCompileStatus('compiling')
       setCompileError(null)
-      setCompileLog('Compiling LaTeX…')
 
       try {
-        const { result, pdf, succeeded } = await compileResumePdf(input)
+        const { pdf, succeeded } = await compileResumePdf(input)
 
         if (compileId !== compileRequestRef.current) {
           return
         }
 
-        setCompileLog(result.log || 'Compilation finished.')
-
         if (!succeeded) {
           setCompileStatus('error')
-          setCompileError(
-            'Compilation failed. Review the log below for details.',
-          )
+          setCompileError('Compilation failed. Fix the LaTeX source and recompile.')
           setLastSuccessfulSource(null)
 
           if (mode === 'manual') {
@@ -295,7 +286,6 @@ export function EditorPage() {
 
         setCompileStatus('error')
         setCompileError(explainLatexRuntimeError(error))
-        setCompileLog(getErrorMessage(error))
         setLastSuccessfulSource(null)
 
         if (mode === 'manual') {
@@ -583,16 +573,6 @@ export function EditorPage() {
               </Panel>
             </Group>
           </div>
-
-          <CompileLogPanel
-            status={compileStatus}
-            errorMessage={compileError}
-            log={compileLog}
-            open={logOpen}
-            onToggle={() => {
-              setLogOpen((current) => !current)
-            }}
-          />
         </section>
       </div>
     </main>

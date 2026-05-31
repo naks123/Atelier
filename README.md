@@ -1,4 +1,4 @@
-# Resume Atelier
+# Atelier
 
 A Vite + React + TypeScript web app for writing, previewing, duplicating, and managing multiple LaTeX resume versions. The app uses Firebase Authentication + Firestore for per-user storage and a browser-side BusyTeX WebAssembly runtime for PDF compilation.
 

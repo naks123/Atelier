@@ -45,7 +45,7 @@ Product-minded software engineer with 5+ years of experience building customer-f
 \end{itemize}
 
 \section{Projects}
-\textbf{Resume Atelier} \hfill React, TypeScript, Firebase, LaTeX \\
+\textbf{Atelier} \hfill React, TypeScript, Firebase, LaTeX \\
 Built a split-pane resume editor with autosave, browser-side LaTeX compilation, PDF preview, and multi-version resume management.
 
 \section{Education}

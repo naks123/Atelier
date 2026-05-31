@@ -61,7 +61,7 @@ export function LandingPage() {
     <main className="page-shell">
       <div className="page-frame">
         <header className="landing-nav">
-          <div className="brand">Resume Atelier</div>
+          <div className="brand">Atelier</div>
           <button
             type="button"
             onClick={() => {
@@ -79,9 +79,9 @@ export function LandingPage() {
           <div className="landing-copy">
             <h1>Write, compile, and manage LaTeX resumes in one place.</h1>
             <p>
-              Resume Atelier keeps each resume version in a private Firebase
-              workspace and compiles PDFs directly in the browser. It is built
-              for editing source, checking layout, duplicating variants, and
+              Atelier keeps each resume version in a private Firebase workspace
+              and compiles PDFs directly in the browser. It is built for
+              editing source, checking layout, duplicating variants, and
               downloading final copies without leaving the app.
             </p>
 
@@ -150,10 +150,6 @@ export function LandingPage() {
                   </p>
                 </div>
               </div>
-            </div>
-
-            <div className="mock-log">
-              Compilation log — Output written on main.pdf
             </div>
           </div>
         </section>
